@@ -223,6 +223,14 @@ body {
 .exp-amount { font-size: 16px; font-weight: 700; white-space: nowrap; }
 .exp-del    { background: none; border: none; font-size: 16px; color: #ccc; cursor: pointer; padding: 4px; -webkit-tap-highlight-color: transparent; }
 .exp-del:active { color: var(--red); }
+.refresh-btn {
+  background: #f5f5f5; border: 1px solid #e0e0e0; border-radius: 20px;
+  padding: 5px 13px; font-size: 13px; font-weight: 600; color: var(--text-light);
+  cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: transparent;
+}
+.refresh-btn:active { background: #e0e0e0; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.spinning { display: inline-block; animation: spin 0.5s linear; }
 .exp-total {
   background: var(--red-light); border-radius: 10px; padding: 11px 14px;
   display: flex; justify-content: space-between; align-items: center; margin-top: 10px;
@@ -698,7 +706,10 @@ body {
 
     <!-- Expense Logger -->
     <div class="logger-card">
-      <div class="logger-title">📝 行程記帳</div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:13px;">
+        <div class="logger-title" style="margin-bottom:0;">📝 行程記帳</div>
+        <button class="refresh-btn" onclick="refreshExps(this)"><span id="refresh-icon">🔄</span> 刷新</button>
+      </div>
 
       <div class="add-row">
         <input class="exp-input" type="text" id="exp-name" placeholder="項目名稱" style="flex:2; min-width:0;"/>
@@ -1122,6 +1133,16 @@ function renderExps() {
   }).join('');
 }
 
+function refreshExps(btn) {
+  exps = JSON.parse(localStorage.getItem('tp26_exp') || '[]');
+  renderExps();
+  if (btn) {
+    const icon = btn.querySelector('span');
+    icon.classList.add('spinning');
+    setTimeout(() => icon.classList.remove('spinning'), 500);
+  }
+}
+
 function addExp() {
   const name  = document.getElementById('exp-name').value.trim();
   const amt   = parseInt(document.getElementById('exp-amt').value);
@@ -1133,12 +1154,12 @@ function addExp() {
   document.getElementById('exp-name').value='';
   document.getElementById('exp-amt').value='';
   if (gfEntry) { gfEntry = false; document.getElementById('gf-btn').classList.remove('on'); }
-  renderExps();
+  refreshExps();
 }
 function delExp(i) {
   exps.splice(i,1);
   localStorage.setItem('tp26_exp', JSON.stringify(exps));
-  renderExps();
+  refreshExps();
 }
 document.getElementById('exp-amt').addEventListener('keydown', e=>{ if(e.key==='Enter') addExp(); });
 
