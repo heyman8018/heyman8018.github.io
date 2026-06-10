@@ -1059,14 +1059,7 @@ const PAYER_COLORS = { '啊爸':'#1E88E5', '啊媽':'#E53935', '恩':'#43A047', 
 
 function toggleGfEntry() {
   gfEntry = !gfEntry;
-  const btn   = document.getElementById('gf-btn');
-  const payer = document.getElementById('exp-payer');
-  btn.classList.toggle('on', gfEntry);
-  if (gfEntry) {
-    payer.value = '啊爸'; payer.disabled = true; payer.style.opacity = '0.4';
-  } else {
-    payer.disabled = false; payer.style.opacity = '1';
-  }
+  document.getElementById('gf-btn').classList.toggle('on', gfEntry);
 }
 
 function renderExps() {
@@ -1081,19 +1074,18 @@ function renderExps() {
   }
   empty.style.display='none'; total.style.display='flex'; psum.style.display='block';
 
-  const effectivePayer = e => e.payer;
   const sum = exps.reduce((s,e)=>s+e.amt,0);
   document.getElementById('total-twd').textContent = 'NT$'+sum.toLocaleString();
   document.getElementById('total-hkd').textContent = '≈ HK$'+(sum/TWD_PER_HKD).toFixed(0);
 
   list.innerHTML = exps.map((e,i)=>{
-    const p = effectivePayer(e);
-    const col = PAYER_COLORS[p]||'#888';
+    const col = PAYER_COLORS[e.payer]||'#888';
     return `<div class="exp-item">
       <div class="exp-left">
-        <div class="exp-name">${e.cat} ${e.name}</div>
+        <div class="exp-name">${e.cat} ${e.name}${e.gf ? ' 👑' : ''}</div>
         <div class="exp-meta">
-          <span style="background:${col};color:white;border-radius:10px;padding:1px 8px;font-size:11px;font-weight:700;">${p}</span>
+          <span style="background:${col};color:white;border-radius:10px;padding:1px 8px;font-size:11px;font-weight:700;">${e.payer}</span>
+          ${e.gf ? '<span style="color:#FF9800;font-size:11px;font-weight:700;"> 金主</span>' : ''}
           &nbsp;≈ HK$${(e.amt/TWD_PER_HKD).toFixed(0)}
         </div>
       </div>
@@ -1102,19 +1094,26 @@ function renderExps() {
     </div>`;
   }).join('');
 
-  // Per-person summary (only those who paid)
-  const byPayer = {};
+  // Per-person summary — split each payer into regular vs 金主 rows
+  const byKey = {};
   exps.forEach(e => {
-    const p = effectivePayer(e);
-    byPayer[p] = (byPayer[p]||0) + e.amt;
+    const key = e.payer + (e.gf ? '__gf' : '');
+    if (!byKey[key]) byKey[key] = { payer: e.payer, gf: !!e.gf, amt: 0 };
+    byKey[key].amt += e.amt;
   });
-  const rows = Object.entries(byPayer).sort((a,b)=>b[1]-a[1]);
-  document.getElementById('payer-rows').innerHTML = rows.map(([p,amt])=>{
+  const rows = Object.values(byKey).sort((a,b) => {
+    if (a.payer !== b.payer) {
+      const order = ['啊爸','啊媽','恩','雯'];
+      return order.indexOf(a.payer) - order.indexOf(b.payer);
+    }
+    return a.gf ? 1 : -1;
+  });
+  document.getElementById('payer-rows').innerHTML = rows.map(({payer: p, gf, amt})=>{
     const col = PAYER_COLORS[p]||'#888';
     return `<div class="payer-row">
       <div class="payer-name-tag">
-        <div class="payer-avatar" style="background:${col};">${p[0]}</div>
-        <span>${p}</span>
+        <div class="payer-avatar" style="background:${col}${gf ? ';outline:2px solid #FF9800' : ''};">${p[0]}</div>
+        <span>${p}${gf ? ' <span style="color:#FF9800;font-size:13px;">👑 金主</span>' : ''}</span>
       </div>
       <div class="payer-amounts">
         <div class="payer-twd">NT$${amt.toLocaleString()}</div>
@@ -1130,17 +1129,11 @@ function addExp() {
   const cat   = document.getElementById('exp-cat').value;
   const payer = document.getElementById('exp-payer').value;
   if (!name||!amt||amt<=0) return;
-  exps.unshift({ name, amt, cat, payer });
+  exps.unshift({ name, amt, cat, payer, gf: gfEntry });
   localStorage.setItem('tp26_exp', JSON.stringify(exps));
   document.getElementById('exp-name').value='';
   document.getElementById('exp-amt').value='';
-  // reset godfather entry toggle
-  if (gfEntry) {
-    gfEntry = false;
-    document.getElementById('gf-btn').classList.remove('on');
-    const ps = document.getElementById('exp-payer');
-    ps.disabled = false; ps.style.opacity = '1';
-  }
+  if (gfEntry) { gfEntry = false; document.getElementById('gf-btn').classList.remove('on'); }
   renderExps();
 }
 function delExp(i) {
