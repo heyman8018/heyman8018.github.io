@@ -34,12 +34,11 @@ body {
 
 /* COVER IMAGE */
 .cover-hero {
-  width: 100%; overflow: hidden; line-height: 0;
-  max-height: 260px; background: linear-gradient(135deg, var(--red), #c0392b);
+  width: 100%; line-height: 0;
+  background: linear-gradient(135deg, var(--red), #c0392b);
 }
 .cover-hero img {
-  width: 100%; height: 260px; object-fit: cover;
-  object-position: center 30%; display: block;
+  width: 100%; height: auto; display: block;
 }
 
 /* BOTTOM NAV */
@@ -1113,7 +1112,7 @@ function renderExps() {
     return `<div class="payer-row">
       <div class="payer-name-tag">
         <div class="payer-avatar" style="background:${col}${gf ? ';outline:2px solid #FF9800' : ''};">${p[0]}</div>
-        <span>${p}${gf ? ' <span style="color:#FF9800;font-size:13px;">👑 金主</span>' : ''}</span>
+        <span>${p}${gf ? ' <span style="color:#FF9800;font-size:13px;">金主爸爸萬歲🎉</span>' : ''}</span>
       </div>
       <div class="payer-amounts">
         <div class="payer-twd">NT$${amt.toLocaleString()}</div>
