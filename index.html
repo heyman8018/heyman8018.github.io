@@ -728,9 +728,8 @@ body {
         <button class="add-btn" onclick="addExp()">＋</button>
       </div>
 
-      <div id="exp-list">
-        <div class="empty-msg" id="exp-empty">尚未記錄任何支出<br><span style="font-size:28px;">💸</span></div>
-      </div>
+      <div class="empty-msg" id="exp-empty">尚未記錄任何支出<br><span style="font-size:28px;">💸</span></div>
+      <div id="exp-list"></div>
       <div class="exp-total" id="exp-total" style="display:none;">
         <div>
           <div class="exp-total-label">總支出</div>
@@ -1079,7 +1078,7 @@ function renderExps() {
   const psum  = document.getElementById('payer-summary');
 
   if (!exps.length) {
-    list.innerHTML=''; list.appendChild(empty);
+    list.innerHTML='';
     empty.style.display='block'; total.style.display='none'; psum.style.display='none'; return;
   }
   empty.style.display='none'; total.style.display='flex'; psum.style.display='block';
