@@ -32,6 +32,16 @@ body {
 .header h1 { font-size: 20px; font-weight: 700; }
 .header-date { font-size: 13px; opacity: 0.9; margin-top: 2px; }
 
+/* COVER IMAGE */
+.cover-hero {
+  width: 100%; overflow: hidden; line-height: 0;
+  max-height: 260px; background: linear-gradient(135deg, var(--red), #c0392b);
+}
+.cover-hero img {
+  width: 100%; height: 260px; object-fit: cover;
+  object-position: center 30%; display: block;
+}
+
 /* BOTTOM NAV */
 .bottom-nav {
   position: fixed; bottom: 0; left: 0; right: 0;
@@ -132,6 +142,39 @@ body {
 /* ── EXPENSE SECTION ── */
 .exp-wrap { padding: 14px 14px 24px; }
 
+/* 金主爸爸 toggle */
+.godfather-toggle {
+  background: linear-gradient(135deg, #fff3e0, #ffe0b2);
+  border: 2px solid #FF9800;
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.godfather-toggle.active {
+  background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+  border-color: var(--green-border);
+}
+.godfather-label { font-size: 17px; font-weight: 700; }
+.godfather-sub   { font-size: 13px; color: var(--text-light); margin-top: 2px; }
+.gf-switch {
+  width: 52px; height: 30px; border-radius: 15px; background: #ccc;
+  position: relative; flex-shrink: 0; transition: background 0.2s;
+}
+.gf-switch::after {
+  content: ''; position: absolute; width: 24px; height: 24px;
+  background: white; border-radius: 50%; top: 3px; left: 3px;
+  transition: left 0.2s; box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+.gf-switch.on { background: var(--green-border); }
+.gf-switch.on::after { left: 25px; }
+
+/* Currency Converter */
 .converter-card {
   background: white; border-radius: var(--radius); padding: 16px;
   margin-bottom: 14px; box-shadow: var(--shadow); border-top: 4px solid #FF9800;
@@ -168,24 +211,29 @@ body {
 .qbtn:active { background: #FFE0B2; }
 .rate-note { font-size: 12px; color: #aaa; text-align: center; }
 
+/* Logger */
 .logger-card {
   background: white; border-radius: var(--radius); padding: 16px;
   margin-bottom: 14px; box-shadow: var(--shadow); border-top: 4px solid var(--red);
 }
 .logger-title { font-size: 17px; font-weight: 700; color: var(--red-dark); margin-bottom: 13px; }
-.add-row { display: flex; gap: 7px; margin-bottom: 10px; }
+.add-row { display: flex; gap: 6px; margin-bottom: 10px; flex-wrap: wrap; }
 .exp-input {
-  padding: 10px 11px; border: 2px solid #e0e0e0; border-radius: 10px;
-  font-size: 15px; font-family: inherit; outline: none; -webkit-appearance: none; appearance: none;
+  padding: 9px 10px; border: 2px solid #e0e0e0; border-radius: 10px;
+  font-size: 15px; font-family: inherit; outline: none;
+  -webkit-appearance: none; appearance: none;
 }
 .exp-input:focus { border-color: var(--red); }
-.exp-cat {
-  padding: 10px 6px; border: 2px solid #e0e0e0; border-radius: 10px;
-  font-size: 16px; font-family: inherit; background: white; outline: none;
+.exp-sel {
+  padding: 9px 6px; border: 2px solid #e0e0e0; border-radius: 10px;
+  font-size: 14px; font-family: inherit; background: white; outline: none;
+  -webkit-appearance: none; appearance: none;
+  color: var(--text);
 }
+.exp-sel:focus { border-color: var(--red); }
 .add-btn {
   background: var(--red); color: white; border: none; border-radius: 10px;
-  padding: 10px 16px; font-size: 18px; font-family: inherit; font-weight: 700;
+  padding: 9px 14px; font-size: 18px; font-family: inherit; font-weight: 700;
   cursor: pointer; -webkit-tap-highlight-color: transparent; flex-shrink: 0;
 }
 .add-btn:active { background: var(--red-dark); }
@@ -206,6 +254,30 @@ body {
 .exp-total-label  { font-size: 15px; font-weight: 700; color: var(--red-dark); }
 .exp-total-amount { font-size: 20px; font-weight: 700; color: var(--red); }
 .empty-msg { text-align: center; color: #bbb; font-size: 14px; padding: 24px 0; }
+
+/* Per-person summary */
+.payer-summary {
+  background: white; border-radius: var(--radius); padding: 14px 16px;
+  box-shadow: var(--shadow); border-top: 4px solid #9C27B0;
+}
+.payer-summary-title { font-size: 15px; font-weight: 700; color: #6A1B9A; margin-bottom: 12px; }
+.payer-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 8px 0; border-top: 1px solid #f5f5f5;
+}
+.payer-row:first-of-type { border-top: none; }
+.payer-name-tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 16px; font-weight: 700;
+}
+.payer-avatar {
+  width: 30px; height: 30px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; font-weight: 700; color: white; flex-shrink: 0;
+}
+.payer-amounts { text-align: right; }
+.payer-twd  { font-size: 16px; font-weight: 700; }
+.payer-hkd  { font-size: 12px; color: var(--text-light); }
 
 /* ── WEATHER ── */
 .wx-wrap { padding: 14px 14px 24px; }
@@ -271,7 +343,7 @@ body {
 .modal-overlay.open { display: flex; }
 .modal-box {
   background: white; border-radius: 16px; padding: 20px;
-  width: 100%; max-width: 360px; max-height: 82vh; overflow-y: auto;
+  width: 100%; max-width: 360px; max-height: 85vh; overflow-y: auto;
   box-shadow: 0 10px 40px rgba(0,0,0,0.3);
 }
 .modal-head {
@@ -289,11 +361,20 @@ body {
 .modal-row { display: flex; gap: 10px; margin-bottom: 7px; font-size: 15px; }
 .modal-lbl { color: var(--text-light); min-width: 55px; font-size: 14px; flex-shrink: 0; }
 .modal-val { font-weight: 600; }
-.modal-screenshot { margin-top: 14px; border-radius: 10px; overflow: hidden; border: 1px solid #e0e0e0; }
+.modal-divider { height: 1px; background: #f0f0f0; margin: 14px 0; }
+.modal-booking-link {
+  display: flex; align-items: center; gap: 8px; justify-content: center;
+  background: #E3F2FD; color: #1565C0; border: 1px solid #BBDEFB;
+  border-radius: 10px; padding: 11px; text-decoration: none;
+  font-size: 14px; font-weight: 600; margin-bottom: 12px;
+  -webkit-tap-highlight-color: transparent;
+}
+.modal-booking-link:active { background: #BBDEFB; }
+.modal-screenshot { margin-top: 4px; border-radius: 10px; overflow: hidden; border: 1px solid #e0e0e0; }
 .modal-screenshot img { width: 100%; display: block; }
 .modal-no-ss {
-  background: #f8f8f8; border-radius: 10px; padding: 22px;
-  text-align: center; color: #ccc; font-size: 14px; margin-top: 14px;
+  background: #f8f8f8; border-radius: 10px; padding: 20px;
+  text-align: center; color: #bbb; font-size: 13px;
   border: 2px dashed #e0e0e0;
 }
 </style>
@@ -309,6 +390,12 @@ body {
      SECTION 1: 行程
 ══════════════════════════════════════════ -->
 <div class="section active" id="sec-trip">
+
+  <!-- Cover Image -->
+  <div class="cover-hero" id="cover-hero">
+    <img src="./cover.jpg" alt="台北家庭之旅"
+         onerror="document.getElementById('cover-hero').style.display='none'"/>
+  </div>
 
   <nav class="day-tabs">
     <button class="day-tab active" onclick="switchDay(1)">Day 1<span class="sub">6月19日</span></button>
@@ -339,7 +426,7 @@ body {
     <div class="card neutral">
       <div class="card-time">11:45 — 13:30</div>
       <div class="card-title">🛃 入境 + 前往市區</div>
-      <div class="card-note">辦理入境手續，乘機場捷運或計程車前往酒店</div>
+      <div class="card-note">辦理入境，乘機場捷運或計程車前往酒店</div>
       <div class="card-actions">
         <a class="btn-map" href="https://www.google.com/maps/search/?api=1&query=桃園機場捷運" target="_blank">🗺️ 機場捷運</a>
       </div>
@@ -347,11 +434,11 @@ body {
 
     <div class="card confirmed">
       <div class="card-time">13:30 — 15:00</div>
-      <div class="card-title">🍲 午餐：無老鍋</div>
-      <div class="card-note">台北知名麻辣鍋</div>
+      <div class="card-title">🍲 午餐：無老鍋 台北中山店</div>
+      <div class="card-note">台北中山區中山北路二段36-1號 · 02-25816238</div>
       <div class="card-actions">
-        <span class="badge badge-confirmed">✅ 已訂妥</span>
-        <a class="btn-map" href="https://www.google.com/maps/search/?api=1&query=無老鍋+台北" target="_blank">🗺️ 地圖</a>
+        <span class="badge badge-confirmed">✅ 已訂妥 · 4位大人</span>
+        <a class="btn-map" href="https://www.google.com/maps/search/?api=1&query=無老鍋+台北中山" target="_blank">🗺️ 地圖</a>
         <button class="btn-res" onclick="openModal('wulao')">📋 訂位詳情</button>
       </div>
     </div>
@@ -389,7 +476,7 @@ body {
     <div class="card confirmed">
       <div class="card-time">18:00 — 20:00</div>
       <div class="card-title">🍖 晚餐：古北饕旗艦店</div>
-      <div class="card-note">訂座時間：18:00</div>
+      <div class="card-note">訂座時間：18:00 · 4位大人</div>
       <div class="card-actions">
         <span class="badge badge-confirmed">✅ 已訂妥 18:00</span>
         <a class="btn-map" href="https://www.google.com/maps/search/?api=1&query=古北饕旗艦店+台北" target="_blank">🗺️ 地圖</a>
@@ -422,7 +509,7 @@ body {
     <div class="card neutral">
       <div class="card-time">08:30 — 09:30</div>
       <div class="card-title">🍳 酒店內早餐</div>
-      <div class="card-note">晶華酒店早餐，悠閒開始</div>
+      <div class="card-note">晶華酒店早餐</div>
     </div>
 
     <div class="card neutral">
@@ -488,7 +575,7 @@ body {
     <div class="card confirmed">
       <div class="card-time">18:15 — 20:30</div>
       <div class="card-title">🔥 晚餐：炭夕 炭火小料理</div>
-      <div class="card-note">訂座時間：18:30</div>
+      <div class="card-note">訂座時間：18:30 · 4位大人</div>
       <div class="card-actions">
         <span class="badge badge-confirmed">✅ 已訂妥 18:30</span>
         <a class="btn-map" href="https://www.google.com/maps/search/?api=1&query=炭夕+炭火小料理+台北" target="_blank">🗺️ 地圖</a>
@@ -605,6 +692,16 @@ body {
 <div class="section" id="sec-expense">
   <div class="exp-wrap">
 
+    <!-- 金主爸爸 Toggle -->
+    <div class="godfather-toggle" id="gf-toggle" onclick="toggleGodfather()">
+      <div>
+        <div class="godfather-label">👑 金主爸爸模式</div>
+        <div class="godfather-sub" id="gf-sub">關閉 — 各人自行記帳</div>
+      </div>
+      <div class="gf-switch" id="gf-switch"></div>
+    </div>
+
+    <!-- Currency Converter -->
     <div class="converter-card">
       <div class="conv-title">💱 匯率換算</div>
       <div class="conv-row">
@@ -629,20 +726,29 @@ body {
         <button class="qbtn" onclick="qc(2000)">NT$2,000</button>
         <button class="qbtn" onclick="qc(5000)">NT$5,000</button>
       </div>
-      <div class="rate-note" id="rate-note">參考匯率：1 HKD ≈ 3.95 TWD（以實際匯率為準）</div>
+      <div class="rate-note">參考匯率：1 HKD ≈ 3.95 TWD（以實際匯率為準）</div>
     </div>
 
+    <!-- Expense Logger -->
     <div class="logger-card">
       <div class="logger-title">📝 行程記帳</div>
+
       <div class="add-row">
         <input class="exp-input" type="text" id="exp-name" placeholder="項目名稱" style="flex:2; min-width:0;"/>
-        <select class="exp-cat" id="exp-cat">
+        <select class="exp-sel" id="exp-cat">
           <option>🍽️</option><option>🛍️</option><option>🚗</option>
           <option>🎫</option><option>🏨</option><option>💊</option><option>☕</option>
         </select>
         <input class="exp-input" type="number" id="exp-amt" placeholder="NT$" inputmode="numeric" style="width:80px; flex-shrink:0;"/>
+        <select class="exp-sel" id="exp-payer" style="min-width:52px;">
+          <option value="啊爸">啊爸</option>
+          <option value="啊媽">啊媽</option>
+          <option value="恩">恩</option>
+          <option value="雯">雯</option>
+        </select>
         <button class="add-btn" onclick="addExp()">＋</button>
       </div>
+
       <div id="exp-list">
         <div class="empty-msg" id="exp-empty">尚未記錄任何支出<br><span style="font-size:28px;">💸</span></div>
       </div>
@@ -654,6 +760,13 @@ body {
         <div class="exp-total-amount" id="total-twd">NT$0</div>
       </div>
     </div>
+
+    <!-- Per-person Summary -->
+    <div class="payer-summary" id="payer-summary" style="display:none;">
+      <div class="payer-summary-title">👥 各人付款摘要</div>
+      <div id="payer-rows"></div>
+    </div>
+
   </div>
 </div>
 
@@ -672,24 +785,18 @@ body {
     <div style="font-size:14px;font-weight:700;color:var(--text-light);margin-bottom:9px;">三日天氣預報</div>
     <div class="wx-days">
       <div class="wx-day">
-        <div class="wxd-date">6/19（五）</div>
-        <div class="wxd-icon">🌤️</div>
-        <div class="wxd-temp">20–23°C</div>
-        <div class="wxd-desc">多雲時晴</div>
+        <div class="wxd-date">6/19（五）</div><div class="wxd-icon">🌤️</div>
+        <div class="wxd-temp">20–23°C</div><div class="wxd-desc">多雲時晴</div>
         <div class="wxd-rain">🌧️ 30%</div>
       </div>
       <div class="wx-day">
-        <div class="wxd-date">6/20（六）</div>
-        <div class="wxd-icon">🌦️</div>
-        <div class="wxd-temp">19–22°C</div>
-        <div class="wxd-desc">偶有陣雨</div>
+        <div class="wxd-date">6/20（六）</div><div class="wxd-icon">🌦️</div>
+        <div class="wxd-temp">19–22°C</div><div class="wxd-desc">偶有陣雨</div>
         <div class="wxd-rain">🌧️ 55%</div>
       </div>
       <div class="wx-day">
-        <div class="wxd-date">6/21（日）</div>
-        <div class="wxd-icon">⛅</div>
-        <div class="wxd-temp">20–24°C</div>
-        <div class="wxd-desc">多雲間晴</div>
+        <div class="wxd-date">6/21（日）</div><div class="wxd-icon">⛅</div>
+        <div class="wxd-temp">20–24°C</div><div class="wxd-desc">多雲間晴</div>
         <div class="wxd-rain">🌧️ 25%</div>
       </div>
     </div>
@@ -697,11 +804,11 @@ body {
     <div class="tip-card">
       <div class="tip-card-title">👕 穿著 &amp; 旅行貼士</div>
       <div class="tip-row"><div class="tip-em">🌡️</div><div><strong>溫度適中</strong><br>日間 22–23°C，早晚 19°C，輕便長袖即可</div></div>
-      <div class="tip-row"><div class="tip-em">☂️</div><div><strong>必帶雨具</strong><br>梅雨季隨身摺疊傘或輕薄雨衣，短暫陣雨居多</div></div>
-      <div class="tip-row"><div class="tip-em">❄️</div><div><strong>室內冷氣強</strong><br>百貨、餐廳冷氣開很大，建議備薄外套</div></div>
+      <div class="tip-row"><div class="tip-em">☂️</div><div><strong>必帶雨具</strong><br>梅雨季隨身摺疊傘，短暫陣雨居多</div></div>
+      <div class="tip-row"><div class="tip-em">❄️</div><div><strong>室內冷氣強</strong><br>百貨、餐廳冷氣開很大，備薄外套</div></div>
       <div class="tip-row"><div class="tip-em">👟</div><div><strong>舒適鞋履</strong><br>步行較多，避免高跟鞋，防滑底為佳</div></div>
-      <div class="tip-row"><div class="tip-em">🚕</div><div><strong>交通</strong><br>Uber / 計程車方便；捷運一日票 NT$180</div></div>
-      <div class="tip-row"><div class="tip-em">💴</div><div><strong>貨幣</strong><br>台幣；大型商場刷卡，夜市多用現金</div></div>
+      <div class="tip-row"><div class="tip-em">🚕</div><div><strong>交通</strong><br>Uber 方便；捷運一日票 NT$180</div></div>
+      <div class="tip-row"><div class="tip-em">💴</div><div><strong>貨幣</strong><br>台幣；大商場刷卡，夜市現金</div></div>
     </div>
   </div>
 </div>
@@ -735,7 +842,7 @@ body {
     <div class="res-card">
       <div class="res-card-title">📋 訂位總覽</div>
       <div class="res-booking-item">
-        <div><div class="res-booking-name">🍲 無老鍋</div><div class="res-booking-time">6月19日 · 13:30</div></div>
+        <div><div class="res-booking-name">🍲 無老鍋</div><div class="res-booking-time">6月19日 · 13:30 · 4人</div></div>
         <div style="display:flex;gap:6px;align-items:center;">
           <span class="badge badge-confirmed" style="font-size:11px;">✅</span>
           <button class="btn-res" onclick="openModal('wulao')" style="font-size:12px;padding:4px 10px;">📋</button>
@@ -749,7 +856,7 @@ body {
         </div>
       </div>
       <div class="res-booking-item">
-        <div><div class="res-booking-name">🍖 古北饕旗艦店</div><div class="res-booking-time">6月19日 · 18:00</div></div>
+        <div><div class="res-booking-name">🍖 古北饕旗艦店</div><div class="res-booking-time">6月19日 · 18:00 · 4人</div></div>
         <div style="display:flex;gap:6px;align-items:center;">
           <span class="badge badge-confirmed" style="font-size:11px;">✅</span>
           <button class="btn-res" onclick="openModal('gubeitao')" style="font-size:12px;padding:4px 10px;">📋</button>
@@ -763,7 +870,7 @@ body {
         </div>
       </div>
       <div class="res-booking-item">
-        <div><div class="res-booking-name">🔥 炭夕 炭火小料理</div><div class="res-booking-time">6月20日 · 18:30</div></div>
+        <div><div class="res-booking-name">🔥 炭夕 炭火小料理</div><div class="res-booking-time">6月20日 · 18:30 · 4人</div></div>
         <div style="display:flex;gap:6px;align-items:center;">
           <span class="badge badge-confirmed" style="font-size:11px;">✅</span>
           <button class="btn-res" onclick="openModal('tanxi')" style="font-size:12px;padding:4px 10px;">📋</button>
@@ -823,28 +930,96 @@ body {
 </div>
 
 <script>
-// ── RESERVATIONS DATA ──────────────────────────────────────
-// To add a screenshot: set screenshot to a relative image path, e.g. "screenshots/wulao.jpg"
+// ── RESERVATION DATA ───────────────────────────────────────
+// screenshots: save image files to the paths below
+// cover image: save cartoon image as ./cover.jpg
 const RES = {
-  wulao:    { name:'🍲 無老鍋',             date:'2026年6月19日（五）', time:'13:30',     note:'',                           screenshot: null },
-  hotel:    { name:'🏨 台北晶華酒店',        date:'2026年6月19–21日',   time:'Check-in 15:00', note:'Regent Taipei · 中山北路二段41號', screenshot: null },
-  gubeitao: { name:'🍖 古北饕旗艦店',        date:'2026年6月19日（五）', time:'18:00',     note:'',                           screenshot: null },
-  bls1:     { name:'🦶 不老松足湯（Day 1）', date:'2026年6月19日（五）', time:'20:00',     note:'透過 Line 預約確認',            screenshot: null },
-  tanxi:    { name:'🔥 炭夕 炭火小料理',     date:'2026年6月20日（六）', time:'18:30',     note:'',                           screenshot: null },
-  bls2:     { name:'🦶 不老松足湯（Day 3）', date:'2026年6月21日（日）', time:'16:00',     note:'透過 Line 預約確認',            screenshot: null },
+  wulao: {
+    name: '🍲 無老鍋 台北中山店',
+    date: '2026年6月19日（五）',
+    time: '13:30',
+    guests: '4 位大人',
+    phone: '02-25816238',
+    address: '台北市中山區中山北路二段36-1號',
+    note: '用餐時間限制90分鐘，訂位保留10分鐘',
+    link: 'https://inline.app/reservations/-OttSm2hCFT9gQ8s4YZN',
+    linkLabel: '查看訂位（inline）',
+    screenshot: './screenshots/wulao.jpg'
+  },
+  hotel: {
+    name: '🏨 台北晶華酒店',
+    date: '2026年6月19–21日',
+    time: 'Check-in 15:00 / Check-out 11:00',
+    guests: '確認人數',
+    address: '台北市中山區中山北路二段41號',
+    note: '',
+    link: 'https://www.regenttaiwan.com/',
+    linkLabel: '酒店官網',
+    screenshot: null
+  },
+  gubeitao: {
+    name: '🍖 古北饕旗艦店',
+    date: '2026年6月19日（五）',
+    time: '18:00',
+    guests: '4 位大人（Party of 4）',
+    address: '',
+    note: 'Reservation confirmed · Email: koey97118@gmail.com',
+    link: 'https://www.google.com/maps/reserve/bookings/detail?b=a0k-4ujJg20',
+    linkLabel: '查看訂位（Google Maps）',
+    screenshot: './screenshots/gubeitao.jpg'
+  },
+  bls1: {
+    name: '🦶 不老松足湯（Day 1）',
+    date: '2026年6月19日（五）',
+    time: '20:00',
+    guests: '確認人數',
+    address: '',
+    note: '透過 Line 預約確認',
+    link: null,
+    screenshot: null
+  },
+  tanxi: {
+    name: '🔥 炭夕 炭火小料理',
+    date: '2026年6月20日（六）',
+    time: '18:30',
+    guests: '4 位大人（Party of 4）',
+    address: '',
+    note: 'Reservation confirmed · Email: koey97118@gmail.com',
+    link: 'https://www.google.com/maps/reserve/bookings/detail?b=jqu11WMsWME',
+    linkLabel: '查看訂位（Google Maps）',
+    screenshot: './screenshots/tanxi.jpg'
+  },
+  bls2: {
+    name: '🦶 不老松足湯（Day 3）',
+    date: '2026年6月21日（日）',
+    time: '16:00',
+    guests: '確認人數',
+    address: '',
+    note: '透過 Line 預約確認',
+    link: null,
+    screenshot: null
+  }
 };
 
+// ── MODAL ──────────────────────────────────────────────────
 function openModal(id) {
   const r = RES[id]; if (!r) return;
   document.getElementById('modal-title').textContent = r.name;
   let html = `
     <div class="modal-row"><div class="modal-lbl">📅 日期</div><div class="modal-val">${r.date}</div></div>
-    <div class="modal-row"><div class="modal-lbl">🕐 時間</div><div class="modal-val">${r.time}</div></div>`;
-  if (r.note) html += `<div class="modal-row"><div class="modal-lbl">備注</div><div class="modal-val" style="font-size:14px;">${r.note}</div></div>`;
+    <div class="modal-row"><div class="modal-lbl">🕐 時間</div><div class="modal-val">${r.time}</div></div>
+    <div class="modal-row"><div class="modal-lbl">👥 人數</div><div class="modal-val">${r.guests}</div></div>`;
+  if (r.address) html += `<div class="modal-row"><div class="modal-lbl">📍 地址</div><div class="modal-val" style="font-size:13px;">${r.address}</div></div>`;
+  if (r.phone)   html += `<div class="modal-row"><div class="modal-lbl">📞 電話</div><div class="modal-val">${r.phone}</div></div>`;
+  if (r.note)    html += `<div class="modal-row"><div class="modal-lbl">備注</div><div class="modal-val" style="font-size:13px;color:var(--text-light);">${r.note}</div></div>`;
+  if (r.link) {
+    html += `<div class="modal-divider"></div>
+      <a class="modal-booking-link" href="${r.link}" target="_blank">🔗 ${r.linkLabel || '查看訂位'}</a>`;
+  }
   if (r.screenshot) {
-    html += `<div class="modal-screenshot"><img src="${r.screenshot}" alt="訂位截圖"/></div>`;
-  } else {
-    html += `<div class="modal-no-ss">📸<br>訂位截圖<br><small style="color:#bbb;">（將截圖放入 screenshots/ 資料夾後，<br>在 RES 物件中填入路徑）</small></div>`;
+    html += `<div class="modal-screenshot"><img src="${r.screenshot}" alt="訂位截圖" onerror="this.parentElement.innerHTML='<div class=\\'modal-no-ss\\'>📸 截圖檔案未找到<br><small>${r.screenshot}</small></div>'"/></div>`;
+  } else if (!r.link) {
+    html += `<div class="modal-no-ss" style="margin-top:14px;">📸 暫無截圖</div>`;
   }
   document.getElementById('modal-body').innerHTML = html;
   document.getElementById('modal-overlay').classList.add('open');
@@ -855,12 +1030,9 @@ function closeModal() {
   document.body.style.overflow = '';
 }
 document.getElementById('modal-close-btn').onclick = closeModal;
-document.getElementById('modal-overlay').onclick = function(e) {
-  if (e.target === this) closeModal();
-};
+document.getElementById('modal-overlay').onclick = function(e) { if (e.target===this) closeModal(); };
 
-// ── SECTION SWITCHING ──────────────────────────────────────
-const SEC_IDS = ['trip','expense','weather','resources'];
+// ── SECTION / DAY SWITCHING ────────────────────────────────
 function switchSec(name, idx) {
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
@@ -868,41 +1040,34 @@ function switchSec(name, idx) {
   document.querySelectorAll('.nav-btn')[idx].classList.add('active');
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
-
-// ── DAY SWITCHING ──────────────────────────────────────────
 function switchDay(d) {
-  document.querySelectorAll('.day-tab').forEach((t, i) => t.classList.toggle('active', i+1===d));
-  document.querySelectorAll('.day-panel').forEach((p, i) => p.classList.toggle('active', i+1===d));
+  document.querySelectorAll('.day-tab').forEach((t,i) => t.classList.toggle('active', i+1===d));
+  document.querySelectorAll('.day-panel').forEach((p,i) => p.classList.toggle('active', i+1===d));
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 // ── CURRENCY CONVERTER ─────────────────────────────────────
 const TWD_PER_HKD = 3.95;
 let fromTWD = true;
-
 function convert() {
   const v = parseFloat(document.getElementById('from-inp').value);
   if (isNaN(v)) { document.getElementById('to-inp').value=''; setResult(null); return; }
-  const result = fromTWD ? v / TWD_PER_HKD : v * TWD_PER_HKD;
-  document.getElementById('to-inp').value = fromTWD ? result.toFixed(2) : result.toFixed(0);
-  setResult(fromTWD
-    ? `NT$${v.toLocaleString()} → HK$${result.toFixed(2)}`
-    : `HK$${v.toLocaleString()} → NT$${result.toFixed(0)}`);
+  const r = fromTWD ? v/TWD_PER_HKD : v*TWD_PER_HKD;
+  document.getElementById('to-inp').value = fromTWD ? r.toFixed(2) : r.toFixed(0);
+  setResult(fromTWD ? `NT$${v.toLocaleString()} → HK$${r.toFixed(2)}` : `HK$${v.toLocaleString()} → NT$${r.toFixed(0)}`);
 }
 function convertBack() {
   const v = parseFloat(document.getElementById('to-inp').value);
   if (isNaN(v)) { document.getElementById('from-inp').value=''; setResult(null); return; }
-  const result = fromTWD ? v * TWD_PER_HKD : v / TWD_PER_HKD;
-  document.getElementById('from-inp').value = fromTWD ? result.toFixed(0) : result.toFixed(2);
-  setResult(fromTWD
-    ? `HK$${v.toLocaleString()} → NT$${result.toFixed(0)}`
-    : `NT$${v.toLocaleString()} → HK$${result.toFixed(2)}`);
+  const r = fromTWD ? v*TWD_PER_HKD : v/TWD_PER_HKD;
+  document.getElementById('from-inp').value = fromTWD ? r.toFixed(0) : r.toFixed(2);
+  setResult(fromTWD ? `HK$${v.toLocaleString()} → NT$${r.toFixed(0)}` : `NT$${v.toLocaleString()} → HK$${r.toFixed(2)}`);
 }
 function setResult(txt) {
   if (!txt) { document.getElementById('conv-big').textContent='—'; document.getElementById('conv-small').textContent='請輸入金額'; return; }
   const p = txt.split(' → ');
-  document.getElementById('conv-big').textContent = p[1] || txt;
-  document.getElementById('conv-small').textContent = p[0] || '';
+  document.getElementById('conv-big').textContent = p[1]||txt;
+  document.getElementById('conv-small').textContent = p[0]||'';
 }
 function swapCurrency() {
   fromTWD = !fromTWD;
@@ -911,54 +1076,121 @@ function swapCurrency() {
   document.getElementById('quick-btns').innerHTML = fromTWD
     ? `<button class="qbtn" onclick="qc(500)">NT$500</button><button class="qbtn" onclick="qc(1000)">NT$1,000</button><button class="qbtn" onclick="qc(2000)">NT$2,000</button><button class="qbtn" onclick="qc(5000)">NT$5,000</button>`
     : `<button class="qbtn" onclick="qc(100)">HK$100</button><button class="qbtn" onclick="qc(200)">HK$200</button><button class="qbtn" onclick="qc(500)">HK$500</button><button class="qbtn" onclick="qc(1000)">HK$1,000</button>`;
-  document.getElementById('from-inp').value = '';
-  document.getElementById('to-inp').value = '';
+  document.getElementById('from-inp').value=''; document.getElementById('to-inp').value='';
   setResult(null);
 }
-function qc(n) { document.getElementById('from-inp').value = n; convert(); }
+function qc(n) { document.getElementById('from-inp').value=n; convert(); }
 
 // ── EXPENSE TRACKER ────────────────────────────────────────
 let exps = JSON.parse(localStorage.getItem('tp26_exp') || '[]');
+let godfatherOn = JSON.parse(localStorage.getItem('tp26_gf') || 'false');
+
+// Payer colours
+const PAYER_COLORS = { '啊爸':'#1E88E5', '啊媽':'#E53935', '恩':'#43A047', '雯':'#FB8C00' };
+
+function toggleGodfather() {
+  godfatherOn = !godfatherOn;
+  localStorage.setItem('tp26_gf', JSON.stringify(godfatherOn));
+  updateGodfatherUI();
+  renderExps();
+}
+function updateGodfatherUI() {
+  const toggle = document.getElementById('gf-toggle');
+  const sw     = document.getElementById('gf-switch');
+  const sub    = document.getElementById('gf-sub');
+  const payer  = document.getElementById('exp-payer');
+  if (godfatherOn) {
+    toggle.classList.add('active');
+    sw.classList.add('on');
+    sub.textContent = '開啟 — 所有支出由啊爸付款 👑';
+    payer.value = '啊爸';
+    payer.disabled = true;
+    payer.style.opacity = '0.4';
+  } else {
+    toggle.classList.remove('active');
+    sw.classList.remove('on');
+    sub.textContent = '關閉 — 各人自行記帳';
+    payer.disabled = false;
+    payer.style.opacity = '1';
+  }
+}
 
 function renderExps() {
-  const list = document.getElementById('exp-list');
+  const list  = document.getElementById('exp-list');
   const empty = document.getElementById('exp-empty');
   const total = document.getElementById('exp-total');
+  const psum  = document.getElementById('payer-summary');
+
   if (!exps.length) {
-    list.innerHTML = ''; list.appendChild(empty);
-    empty.style.display = 'block'; total.style.display = 'none'; return;
+    list.innerHTML=''; list.appendChild(empty);
+    empty.style.display='block'; total.style.display='none'; psum.style.display='none'; return;
   }
-  empty.style.display = 'none'; total.style.display = 'flex';
-  const sum = exps.reduce((s,e) => s + e.amt, 0);
-  document.getElementById('total-twd').textContent = 'NT$' + sum.toLocaleString();
-  document.getElementById('total-hkd').textContent = '≈ HK$' + (sum / TWD_PER_HKD).toFixed(0);
-  list.innerHTML = exps.map((e,i) => `
-    <div class="exp-item">
+  empty.style.display='none'; total.style.display='flex'; psum.style.display='block';
+
+  const effectivePayer = e => godfatherOn ? '啊爸' : e.payer;
+  const sum = exps.reduce((s,e)=>s+e.amt,0);
+  document.getElementById('total-twd').textContent = 'NT$'+sum.toLocaleString();
+  document.getElementById('total-hkd').textContent = '≈ HK$'+(sum/TWD_PER_HKD).toFixed(0);
+
+  list.innerHTML = exps.map((e,i)=>{
+    const p = effectivePayer(e);
+    const col = PAYER_COLORS[p]||'#888';
+    return `<div class="exp-item">
       <div class="exp-left">
         <div class="exp-name">${e.cat} ${e.name}</div>
-        <div class="exp-meta">≈ HK$${(e.amt / TWD_PER_HKD).toFixed(0)}</div>
+        <div class="exp-meta">
+          <span style="background:${col};color:white;border-radius:10px;padding:1px 8px;font-size:11px;font-weight:700;">${p}</span>
+          &nbsp;≈ HK$${(e.amt/TWD_PER_HKD).toFixed(0)}
+        </div>
       </div>
       <div class="exp-amount">NT$${e.amt.toLocaleString()}</div>
       <button class="exp-del" onclick="delExp(${i})">🗑️</button>
-    </div>`).join('');
+    </div>`;
+  }).join('');
+
+  // Per-person summary (only those who paid)
+  const byPayer = {};
+  exps.forEach(e => {
+    const p = effectivePayer(e);
+    byPayer[p] = (byPayer[p]||0) + e.amt;
+  });
+  const rows = Object.entries(byPayer).sort((a,b)=>b[1]-a[1]);
+  document.getElementById('payer-rows').innerHTML = rows.map(([p,amt])=>{
+    const col = PAYER_COLORS[p]||'#888';
+    return `<div class="payer-row">
+      <div class="payer-name-tag">
+        <div class="payer-avatar" style="background:${col};">${p[0]}</div>
+        <span>${p}</span>
+      </div>
+      <div class="payer-amounts">
+        <div class="payer-twd">NT$${amt.toLocaleString()}</div>
+        <div class="payer-hkd">≈ HK$${(amt/TWD_PER_HKD).toFixed(0)}</div>
+      </div>
+    </div>`;
+  }).join('');
 }
+
 function addExp() {
-  const name = document.getElementById('exp-name').value.trim();
-  const amt  = parseInt(document.getElementById('exp-amt').value);
-  const cat  = document.getElementById('exp-cat').value;
-  if (!name || !amt || amt <= 0) return;
-  exps.unshift({ name, amt, cat });
+  const name  = document.getElementById('exp-name').value.trim();
+  const amt   = parseInt(document.getElementById('exp-amt').value);
+  const cat   = document.getElementById('exp-cat').value;
+  const payer = godfatherOn ? '啊爸' : document.getElementById('exp-payer').value;
+  if (!name||!amt||amt<=0) return;
+  exps.unshift({ name, amt, cat, payer });
   localStorage.setItem('tp26_exp', JSON.stringify(exps));
-  document.getElementById('exp-name').value = '';
-  document.getElementById('exp-amt').value  = '';
+  document.getElementById('exp-name').value='';
+  document.getElementById('exp-amt').value='';
   renderExps();
 }
 function delExp(i) {
-  exps.splice(i, 1);
+  exps.splice(i,1);
   localStorage.setItem('tp26_exp', JSON.stringify(exps));
   renderExps();
 }
-document.getElementById('exp-amt').addEventListener('keydown', e => { if (e.key==='Enter') addExp(); });
+document.getElementById('exp-amt').addEventListener('keydown', e=>{ if(e.key==='Enter') addExp(); });
+
+// Init
+updateGodfatherUI();
 renderExps();
 </script>
 </body>
