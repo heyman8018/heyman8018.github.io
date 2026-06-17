@@ -583,13 +583,14 @@ body {
       <div class="card-note">辦理退房，行李寄存</div>
     </div>
 
-    <div class="card pending">
+    <div class="card confirmed">
       <div class="card-time">13:00 — 15:00</div>
       <div class="card-title">☕ Simple Kaffa Sola 天空興波</div>
       <div class="card-note">台北知名精品咖啡</div>
       <div class="card-actions">
-        <span class="badge badge-pending">⚠️ 待訂位</span>
+        <span class="badge badge-confirmed">✅ 已訂妥</span>
         <a class="btn-map" href="https://www.google.com/maps/search/?api=1&query=Simple+Kaffa+興波咖啡+台北" target="_blank">🗺️ 地圖</a>
+        <button class="btn-res" onclick="openModal('kaffa')">📋 訂位詳情</button>
       </div>
       <div style="margin-top:9px;">
         <span class="badge badge-warning">⚠️ 前一天 12:00 後取消收 $250／人</span>
@@ -834,8 +835,11 @@ body {
         </div>
       </div>
       <div class="res-booking-item">
-        <div><div class="res-booking-name">☕ Simple Kaffa Sola</div><div class="res-booking-time">6月21日 · 11:00</div></div>
-        <div><span class="badge badge-pending" style="font-size:11px;">⚠️ 待訂</span></div>
+        <div><div class="res-booking-name">☕ Simple Kaffa Sola</div><div class="res-booking-time">6月21日 · 13:00</div></div>
+        <div style="display:flex;gap:6px;align-items:center;">
+          <span class="badge badge-confirmed" style="font-size:11px;">✅</span>
+          <button class="btn-res" onclick="openModal('kaffa')" style="font-size:12px;padding:4px 10px;">📋</button>
+        </div>
       </div>
       <div class="res-booking-item">
         <div><div class="res-booking-name">🦶 不老松足湯（Day 3）</div><div class="res-booking-time">6月21日 · 16:00</div></div>
@@ -955,6 +959,17 @@ const RES = {
     note: '透過 Line 預約確認',
     link: null,
     screenshot: null
+  },
+  kaffa: {
+    name: '☕ Simple Kaffa Sola 天空興波',
+    date: '2026年6月21日（日）',
+    time: '13:00',
+    guests: '確認人數',
+    address: '',
+    note: '⚠️ 前一天 12:00 後取消收 $250／人',
+    link: 'https://iln.io/qq989pnq',
+    linkLabel: '查看訂位（inline）',
+    screenshot: './screenshots/kaffa.jpg'
   }
 };
 
